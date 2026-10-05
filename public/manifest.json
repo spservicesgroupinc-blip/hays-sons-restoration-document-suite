@@ -1,0 +1,19 @@
+{
+  "id": "/",
+  "name": "Hays+Sons Restoration Document Suite",
+  "short_name": "Hays+Sons",
+  "description": "Enterprise Xactimate ESX conversion engine, schema validator, restoration schedule architect, and Google Apps Script claim database.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#DC2626",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "65x65 192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

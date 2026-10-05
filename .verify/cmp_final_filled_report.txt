@@ -1,0 +1,30 @@
+generated : .verify\harness\out.pdf
+reference : C:\Users\russe\Downloads\productiontemplate.pdf
+gen pages : 1   ref pages : 1
+
+pixel canvas compared : 1347x1743
+dark ink px   generated=   84342  reference=   78932  IoU=0.804
+highlight px  generated=  137885  reference=  140759  IoU=0.9589
+diff image  : C:\Users\russe\Downloads\hays+sons-restoration-document-suite\.verify\cmp_final_filled_diff.png   red/blue=dark-ink mismatch, orange/green=yellow mismatch
+best-alignment shift (dark ink, 2.2px/pt): dx=+0 (+0.00pt)  dy=+0 (+0.00pt)
+best-alignment shift (highlight, 2.2px/pt): dx=+0 (+0.00pt)  dy=+0 (+0.00pt)
+
+text spans generated=77 reference=65
+  in place (<= 1.5pt) : 65   (of which 0 carry typed-in job data)
+  misplaced/missized   : 0
+  missing from output  : 0
+  extra vs reference   : 12
+
+--- EXTRA (in generated, not in reference) ---
+  [151.1, 111.31, 185.72, 120.95] sz=7.0 'CLM88901'
+  [224.73, 133.27, 255.87, 142.89] sz=7.0 '$1,000.00'
+  [449.53, 133.27, 461.59, 142.89] sz=7.0 'Yes'
+  [325.56, 163.77, 415.14, 173.39] sz=7.0 'd.montgomery@comcast.net'
+  [316.01, 177.77, 363.87, 187.39] sz=7.0 '(317) 555-0149'
+  [118.7, 254.55, 168.49, 264.16] sz=7.0 'ININ8X_MAR26'
+  [358.08, 383.6, 467.6, 393.21] sz=7.0 'Hays + Sons Complete Restoration'
+  [97.6, 506.18, 132.22, 515.82] sz=7.0 'CLM88901'
+  [331.76, 564.64, 340.71, 574.26] sz=7.0 'No'
+  [129.8, 583.71, 164.83, 593.35] sz=7.0 '$20,115.36'
+  [97.6, 597.67, 147.78, 607.29] sz=7.0 'James Callahan'
+  [97.6, 628.17, 133.4, 637.79] sz=7.0 '2026-02-16'

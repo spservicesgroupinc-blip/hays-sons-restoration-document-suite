@@ -1,0 +1,6 @@
+{
+  "name": "Hays+Sons Restoration Document Suite",
+  "description": "Enterprise Xactimate ESX conversion engine, schema validator, restoration schedule architect, and Google Apps Script claim database.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

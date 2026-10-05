@@ -1,0 +1,16 @@
+generated : .verify\harness\blank.pdf
+reference : C:\Users\russe\Downloads\productiontemplate.pdf
+gen pages : 1   ref pages : 1
+
+pixel canvas compared : 1347x1743
+dark ink px   generated=   79658  reference=   78932  IoU=0.8476
+highlight px  generated=  137885  reference=  140759  IoU=0.9589
+diff image  : C:\Users\russe\Downloads\hays+sons-restoration-document-suite\.verify\cmp_final_blank_diff.png   red/blue=dark-ink mismatch, orange/green=yellow mismatch
+best-alignment shift (dark ink, 2.2px/pt): dx=+0 (+0.00pt)  dy=+0 (+0.00pt)
+best-alignment shift (highlight, 2.2px/pt): dx=+0 (+0.00pt)  dy=+0 (+0.00pt)
+
+text spans generated=65 reference=65
+  in place (<= 1.5pt) : 65   (of which 0 carry typed-in job data)
+  misplaced/missized   : 0
+  missing from output  : 0
+  extra vs reference   : 0
