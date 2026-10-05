@@ -19,6 +19,40 @@ View your app in AI Studio: https://ai.studio/apps/38532d25-9483-40f7-bf8b-48014
 3. Run the app:
    `npm run dev`
 
+## Deploying to Vercel
+
+The app deploys as a static Vite build plus a single serverless function.
+
+| Piece | Where |
+| --- | --- |
+| Front end | `vite build` → `dist/`, served as a static SPA |
+| AI proxy | [api/deepseek.ts](api/deepseek.ts) — holds the API key server-side |
+| Project config | [vercel.json](vercel.json) — framework, install command, 60s function timeout |
+
+### Environment variables
+
+Set these in Vercel under **Settings > Environment Variables** for both Preview and Production:
+
+| Variable | Purpose |
+| --- | --- |
+| `DEEPSEEK_API_KEY` | **Secret.** Read only by `api/deepseek.ts`. Never bundled into client code. |
+| `VITE_APPS_SCRIPT_URL` | Optional. Default Google Apps Script Web App URL for the claims database. Public by design. |
+
+`DEEPSEEK_MODEL` (default `deepseek-flash`) and `DEEPSEEK_BASE_URL` are optional overrides.
+
+Anything named `VITE_*` is inlined into the client bundle at build time, so it is public —
+never put a secret behind that prefix.
+
+### Local development
+
+`npm run dev` starts Vite only, so `/api/deepseek` does not exist there and the AI panel
+reports that it is unconfigured. To exercise the function locally, put the same variables in
+`.env.local` (git-ignored) and run `vercel dev` instead.
+
+`npm run lint` is the typecheck. Run it and `npm run build` before deploying.
+
+The AI Studio `GEMINI_API_KEY` note above is vestigial — no code under `src/` reads it.
+
 ## Production Checklist PDF
 
 The **ESX to PDF** screen generates four documents. Three of them are narrative
