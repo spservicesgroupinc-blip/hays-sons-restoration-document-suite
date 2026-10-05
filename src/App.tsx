@@ -3,16 +3,35 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Header, ActiveTab } from './components/Header';
-import { PdfToEsxView } from './components/PdfToEsxView';
-import { EsxToPdfView } from './components/EsxToPdfView';
-import { GanttScheduleView } from './components/GanttScheduleView';
-import { AppsScriptDatabaseView } from './components/AppsScriptDatabaseView';
-import { PythonPipelineView } from './components/PythonPipelineView';
 import { OfflineIndicator } from './components/OfflineIndicator';
 import { EstimateProject } from './types/xactimate';
 import { recalculateTotals } from './services/xactimateSchema';
+import { GoogleAppsScriptService } from './services/googleAppsScriptService';
+
+/**
+ * Tab views are code-split.
+ *
+ * Each one pulls in document-generation libraries (jsPDF, JSZip, the PDF text
+ * parser) that the first screen never touches. The active tab is restored from
+ * ?tab=, so only the requested view is downloaded on load.
+ */
+const PdfToEsxView = lazy(() =>
+  import('./components/PdfToEsxView').then((m) => ({ default: m.PdfToEsxView }))
+);
+const EsxToPdfView = lazy(() =>
+  import('./components/EsxToPdfView').then((m) => ({ default: m.EsxToPdfView }))
+);
+const GanttScheduleView = lazy(() =>
+  import('./components/GanttScheduleView').then((m) => ({ default: m.GanttScheduleView }))
+);
+const AppsScriptDatabaseView = lazy(() =>
+  import('./components/AppsScriptDatabaseView').then((m) => ({ default: m.AppsScriptDatabaseView }))
+);
+const PythonPipelineView = lazy(() =>
+  import('./components/PythonPipelineView').then((m) => ({ default: m.PythonPipelineView }))
+);
 
 // Initial production-grounded restoration project
 export const INITIAL_PROJECT: EstimateProject = {
@@ -231,8 +250,8 @@ export default function App() {
   const [hasAppsScriptUrl, setHasAppsScriptUrl] = useState(false);
 
   useEffect(() => {
-    const url = localStorage.getItem('hays_sons_appscript_url');
-    setHasAppsScriptUrl(Boolean(url && url.trim().length > 0));
+    // Saved dashboard override first, then the VITE_APPS_SCRIPT_URL build default.
+    setHasAppsScriptUrl(GoogleAppsScriptService.getConfiguredUrl().length > 0);
   }, [activeTab]);
 
   return (
@@ -247,6 +266,13 @@ export default function App() {
 
       {/* Main Content Viewport */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-24 text-xs font-medium text-slate-500">
+              Loading workspace…
+            </div>
+          }
+        >
         {activeTab === 'pdf2esx' && (
           <PdfToEsxView
             project={project}
@@ -274,6 +300,7 @@ export default function App() {
         {activeTab === 'python' && (
           <PythonPipelineView />
         )}
+        </Suspense>
       </main>
 
       {/* Quiet Professional Footer */}

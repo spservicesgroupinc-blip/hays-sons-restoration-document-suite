@@ -1,0 +1,4 @@
+# Never upload local verification scratch space or stale build output.
+.verify/
+dist/
+bun.lock

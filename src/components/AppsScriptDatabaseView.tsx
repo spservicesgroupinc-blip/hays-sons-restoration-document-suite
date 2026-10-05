@@ -29,7 +29,7 @@ interface AppsScriptDatabaseViewProps {
 export const AppsScriptDatabaseView: React.FC<AppsScriptDatabaseViewProps> = () => {
   const [records, setRecords] = useState<AppsScriptRecord[]>([]);
   const [auditLogs, setAuditLogs] = useState<AuditLogEntry[]>([]);
-  const [scriptUrl, setScriptUrl] = useState(() => localStorage.getItem('hays_sons_appscript_url') || '');
+  const [scriptUrl, setScriptUrl] = useState(() => GoogleAppsScriptService.getConfiguredUrl());
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncStatus, setSyncStatus] = useState<string | null>(null);
   const [copiedCode, setCopiedCode] = useState(false);

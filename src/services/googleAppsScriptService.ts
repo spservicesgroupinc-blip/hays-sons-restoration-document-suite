@@ -10,6 +10,15 @@ const STORAGE_KEY_URL = 'hays_sons_appscript_url';
 const STORAGE_KEY_AUDIT = 'hays_sons_audit_logs';
 
 /**
+ * Build-time default for the Apps Script Web App URL (optional).
+ *
+ * VITE_* values are inlined into the client bundle, so this is public by
+ * definition — it is a deployment URL, never a credential. A URL saved in the
+ * dashboard still takes precedence over this default.
+ */
+const DEFAULT_SCRIPT_URL = (import.meta.env.VITE_APPS_SCRIPT_URL || '').trim();
+
+/**
  * Production-ready Google Apps Script Code.gs
  * This code is deployed as a Web App (Execute as Me, Anyone has access)
  * It provisions and writes to Google Sheets tabs: "Claims", "LineItems", "AuditLogs"
@@ -244,7 +253,16 @@ const DEFAULT_AUDIT_LOGS: AuditLogEntry[] = [
 
 export class GoogleAppsScriptService {
   private static getStoredUrl(): string {
-    return localStorage.getItem(STORAGE_KEY_URL) || '';
+    const stored = localStorage.getItem(STORAGE_KEY_URL);
+    return (stored && stored.trim()) || DEFAULT_SCRIPT_URL;
+  }
+
+  /**
+   * The URL the app would use right now: the saved dashboard override if one
+   * exists, otherwise the build-time default. Used to prefill the settings form.
+   */
+  public static getConfiguredUrl(): string {
+    return this.getStoredUrl();
   }
 
   public static setStoredUrl(url: string): void {
